@@ -6,4 +6,61 @@ Home
 
 
 {% block contents %}
+<div class="container" style="text-align: center;">
+    <h1>My Notes</h1>
+</div>
+
+<div class="container" style="display:flex;">
+    <div class="container" style="flex: 2; background: lightgray; margin: 10px; padding: 20px;">
+
+        {% for each in data %}
+        <div style="margin: 20px; border: 1px solid black; border-radius: 5px;">
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Subtitle</th>
+                <th>Created On</th>
+                <th rowspan="2"><a class="btn btn-danger" href="{{ url_for('delete_one_note', key=each[0]) }}">🗑️</a></th>
+            </tr>
+            <tr>
+                <td>{{ each[1] }}</td>
+                <td>{{ each[2] }}</td>
+                <td>{{ each[4] }}</td>
+            </tr>
+            <tr>
+                <th colspan="3">Description</th>
+                <th rowspan="2"><a class="btn btn-success" href="{{ url_for('get_one_note', key=each[0]) }}" method="POST">✏️</a></th>
+            </tr>
+            <tr>
+                <td colspan="3">{{ each[3] }}</td>
+            </tr>
+        </table>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+
+    <div class="container" style="flex: 1; background: lightgreen; margin: 10px; padding: 20px; text-align: center;">
+
+        <form action="{{ url_for('create_note') }}" method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label" >Title</label>
+                <input type="text" id="title" name="title" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="subtitle" class="form-label">Subtitle</label>
+                <input type="text" id="subtitle" name="subtitle" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <input type="textarea" id="body" name="body" class="form-control">
+             </div>
+            <input type="submit" value="Add New Note" class="btn btn-primary">
+        </form>
+        
+    </div>
+</div>
 {% endblock contents %}

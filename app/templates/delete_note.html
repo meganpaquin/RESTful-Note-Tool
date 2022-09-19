@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Delete Note
+{% endblock title %}
+
+{% block contents %}
+    {% for each in data %}
+        <div class="container" style="display: flex;">
+            <div style="flex: 1; background: lightgray; margin: 10px; padding: 20px;">
+               <div style="flex: 1; background: lightgray; margin: 10px; padding: 20px;">
+                    <h1>Current Note</h1>
+                    <h3>Title</h3>
+                    <p>{{ each[1] }}</p>
+
+                    <h3>Subtitle</h3>
+                    <p>{{ each[2] }}</p>
+
+                    <h3>Description</h3>
+                    <p>{{ each[3] }}</p>
+               </div> 
+
+                <div style="flex: 1; background: lightgreen; margin: 10px; padding: 20px; text-align: center;">
+
+                    <form action="{{ url_for('delete_note', key=each[0]) }}" method="DELETE">
+                        <h1 style="color: red;">Delete Note</h1>
+                        <h3>Are you sure you want to delete this note?</h3>
+                        <p>Deletion is permanent</p>
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </div>
+        </div>
+    {% endfor %}
+{% endblock contents%}
